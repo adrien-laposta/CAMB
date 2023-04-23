@@ -491,7 +491,7 @@
             this%nu_masses = 0
         end if
         call this%CP%DarkEnergy%Init(this)
-        if (global_error_flag==0) this%tau0=this%TimeOfz(0._dl)
+        if (global_error_flag==0) this%tau0=this%TimeOfz(P%zmax_int)
         if (global_error_flag==0) then
             this%chi0=this%rofChi(this%tau0/this%curvature_radius)
             this%scale= this%chi0*this%curvature_radius/this%tau0  !e.g. change l sampling depending on approx peak spacing
@@ -1802,11 +1802,14 @@
 
     this%matter_verydom_tau = 0
     a_verydom = CP%Accuracy%AccuracyBoost*5*(State%grhog+State%grhornomass)/(State%grhoc+State%grhob)
+    if (State%tau0 < max(0.05_dl, State%TimeOfZ(reion_z_start, 1d-3))) then
+        CP%Reion%Reionization = .false.
+    end  if
     if (CP%Reion%Reionization) then
         call CP%Reion%get_timesteps(State%reion_n_steps, reion_z_start, reion_z_complete)
         State%reion_tau_start = max(0.05_dl, State%TimeOfZ(reion_z_start, 1d-3))
         !Time when a very small reionization fraction (assuming tanh fitting)
-        State%reion_tau_complete = min(State%tau0, &
+        State%reion_tau_complete = min(State%TimeOfZ(0._dl), &
             State%reion_tau_start+ State%DeltaTime(1/(1+reion_z_start),1/(1.d0+reion_z_complete),1d-3))
     else
         State%reion_tau_start = State%tau0

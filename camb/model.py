@@ -190,6 +190,7 @@ class CAMBparams(F2003Class):
         ("max_l", c_int, "l_max for the scalar C_L"),
         ("max_l_tensor", c_int, "l_max for the tensor C_L"),
         ("max_eta_k", c_double, "Maximum k*eta_0 for scalar C_L, where eta_0 is the conformal time today"),
+        ("zmax_int", c_double, "Max z for transfer function"),
         ("max_eta_k_tensor", c_double, "Maximum k*eta_0 for tensor C_L, where eta_0 is the conformal time today"),
         ("ombh2", c_double, "Omega_baryon h^2"),
         ("omch2", c_double, "Omega_cdm h^2"),

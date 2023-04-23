@@ -128,6 +128,7 @@
         integer   :: Max_l = 2500
         integer   :: Max_l_tensor = 600
         real(dl)  :: Max_eta_k = 5000
+        real(dl)  :: zmax_int = 0
         real(dl)  :: Max_eta_k_tensor = 1200
         ! _tensor settings only used in initialization,
         !Max_l and Max_eta_k are set to the tensor variables if only tensors requested
